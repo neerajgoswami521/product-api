@@ -1,4 +1,4 @@
-
+please add DB credientials in main.ts file
 
 ## Project setup
 
