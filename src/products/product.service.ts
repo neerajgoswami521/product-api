@@ -1,28 +1,35 @@
 // product.service.ts (in product-api)
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { Product } from 'shared-orm/models/product';  // Import Product from shared-orm
-import { Category } from 'shared-orm/models/category';  // Import Category if needed
+import { Product } from 'shared-orm/models/product';  
+import { Category } from 'shared-orm/models/category';  
 
 @Injectable()
 export class ProductService {
   constructor(
-    @InjectModel(Product) private productModel: typeof Product,  // Inject Product model
-    @InjectModel(Category) private categoryModel: typeof Category,  // Inject Category model if needed
+    @InjectModel(Product) private productModel: typeof Product,  
+    @InjectModel(Category) private categoryModel: typeof Category,
   ) {}
 
-  // Find all products
-  async findAll(): Promise<Product[]> {
-    return this.productModel.findAll(
-    //   {
-    //   include: [
-    //     {
-    //       model: Category,
-    //       attributes: ['CategoryName'],
-    //     },
-    //   ],
-    // }
-  );
+  async findAll(): Promise<any[]> {
+    const products = await this.productModel.findAll();  
+  
+    
+    const productsWithCategory: Array<any> = [];
+    
+    for (const product of products) {
+      const category = await Category.findOne({
+        where: { id: product.CategoryId },  
+        attributes: ['CategoryName'], 
+      });
+      
+      productsWithCategory.push({
+        ...product.get(),  
+        CategoryName: category ? category.CategoryName : null,  // Add CategoryName
+      });
+    }
+  
+    return productsWithCategory;
   }
 
   // Find one product by ID
