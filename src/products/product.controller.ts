@@ -10,19 +10,19 @@ export class ProductController {
   // Fetch all products
   @Get()
   async findAll(): Promise<Product[]> {
-    return this.productService.findAll();  // Calls the findAll method in ProductService
+    return this.productService.findAll();  
   }
 
   // Fetch a product by ID
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<Product> {
-    return this.productService.findOne(id);  // Calls the findOne method in ProductService
+    return this.productService.findOne(id);  
   }
 
   // Create a new product
   @Post()
   async create(@Body() createProductDto: any): Promise<Product> {
-    return this.productService.create(createProductDto);  // Calls the create method in ProductService
+    return this.productService.create(createProductDto);  
   }
 }
 

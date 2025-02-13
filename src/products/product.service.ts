@@ -25,7 +25,7 @@ export class ProductService {
       
       productsWithCategory.push({
         ...product.get(),  
-        CategoryName: category ? category.CategoryName : null,  // Add CategoryName
+        CategoryName: category ? category.CategoryName : null,  
       });
     }
   
@@ -34,12 +34,12 @@ export class ProductService {
 
   // Find one product by ID
   async findOne(id: string): Promise<Product> {
-    return this.productModel.findOne({ where: { id } });  // Find product by ID
+    return this.productModel.findOne({ where: { id } });
   }
 
   // Create a new product
   async create(createProductDto: any): Promise<Product> {
-    return this.productModel.create(createProductDto);  // Create a new product from DTO
+    return this.productModel.create(createProductDto);  
   }
 
   // Update a product (optional)

@@ -5,12 +5,11 @@ import { ProductService } from './product.service';
 import { ProductController } from './product.controller';
 import { Product } from 'shared-orm/models/product';
 import { Category } from 'shared-orm/models/category';
-import { CategoryModule } from '../category/category.module';  // Import CategoryModule
-
+import { CategoryModule } from '../category/category.module';  
 @Module({
   imports: [
     SequelizeModule.forFeature([Product, Category]),
-    forwardRef(() => CategoryModule),  // Use forwardRef to handle circular dependency
+    forwardRef(() => CategoryModule),  
   ],
   providers: [ProductService],
   controllers: [ProductController],
